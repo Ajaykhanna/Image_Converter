@@ -50,7 +50,7 @@ This Streamlit web application provides a user-friendly interface for converting
 ## 🚀 Live Demo
 
 Try the live application hosted on Streamlit Community Cloud:
-🔗 Launch Image Converter App
+🔗 [Launch Image Converter App](https://imgconverter.streamlit.app/)
 
 ## 🛠️ Prerequisites
 
@@ -62,8 +62,8 @@ Try the live application hosted on Streamlit Community Cloud:
 
     Clone the Repository (if applicable):
 
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/Ajaykhanna/Image_Converter
+    cd Image_Converter
 
     Create a Virtual Environment (Recommended):
 
@@ -76,15 +76,18 @@ Try the live application hosted on Streamlit Community Cloud:
 ```bash
 pip install -r requirements.txt
 ```
+
 If you don't have a requirements.txt yet, you can create one from the main dependencies:
 
 ### Requirements.txt
+
 ```
 streamlit
 Pillow
 # CairoSVG is optional, see below
 
 ```
+
 And then install: pip install streamlit Pillow
 
 ## ▶️ How to Run
@@ -92,9 +95,11 @@ And then install: pip install streamlit Pillow
 Navigate to the directory where you saved the image_converter_app.py file (or the cloned repository).
 
 Run the Streamlit application from your terminal:
+
 ```bash
 streamlit run image_converter_app.py
 ```
+
 The application will open in your default web browser.
 
 ## 🔮 Optional: Enabling SVG Support
@@ -102,11 +107,13 @@ The application will open in your default web browser.
 For converting .svg files as input, you need to install CairoSVG and its system-level dependencies.
 
 **Install CairoSVG Python package**:
+
 ```
 pip install CairoSVG
 ```
 
 **Install System Dependencies for Cairo**:
+
 ```
 macOS (using Homebrew):
 
@@ -123,6 +130,7 @@ sudo yum install cairo-devel
 
 Windows: This can be more complex. You may need to install GTK+ for Windows or find pre-compiled binaries for Cairo. Refer to the CairoSVG documentation or community resources for specific Windows installation guidance.
 ```
+
 If CairoSVG or its dependencies are not found, the application will still run but SVG input functionality will be disabled, and a message will be printed to your console.
 
 Enjoy converting your images!

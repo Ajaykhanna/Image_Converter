@@ -128,6 +128,27 @@ def render_sidebar():
         )
         output_format_lower_selected = output_format_selected.lower()
 
+        # --- Quality options for PNG/JPEG ---
+        png_compression_level = 6  # Pillow default
+        jpeg_quality = 85  # Pillow default
+
+        if output_format_lower_selected == "png":
+            png_compression_level = st.slider(
+                "PNG Compression Level (0=none, 9=max)",
+                min_value=0,
+                max_value=9,
+                value=6,
+                help="Lower value = less compression, larger file, faster save. 0 is highest quality.",
+            )
+        elif output_format_lower_selected in ("jpeg", "jpg"):
+            jpeg_quality = st.slider(
+                "JPEG Quality (1-100)",
+                min_value=1,
+                max_value=100,
+                value=85,
+                help="Higher value = better quality, larger file. 85 is standard.",
+            )
+
         st.markdown("---")
         st.subheader("Resizing & Rescaling")
         resize_help_text = "Check this box to enable image dimension changes."
@@ -216,6 +237,8 @@ def render_sidebar():
         "target_height": target_height_selected,
         "scale_percent": scale_percent_selected,
         "resample_method_key": resample_method_key_selected,
+        "png_compression_level": png_compression_level,
+        "jpeg_quality": jpeg_quality,
     }
 
 
@@ -504,9 +527,24 @@ def process_single_file(uploaded_file, options):
 
             img_byte_arr = io.BytesIO()
             try:
-                img_pil_object.save(
-                    img_byte_arr, format=options["output_format"].upper()
-                )
+                if options["output_format_lower"] == "png":
+                    img_pil_object.save(
+                        img_byte_arr,
+                        format="PNG",
+                        compress_level=options.get(
+                            "png_compression_level", 6
+                        ),  # User-selected
+                    )
+                elif options["output_format_lower"] in ["jpeg", "jpg"]:
+                    img_pil_object.save(
+                        img_byte_arr,
+                        format="JPEG",
+                        quality=options.get("jpeg_quality", 85),  # User-selected
+                    )
+                else:
+                    img_pil_object.save(
+                        img_byte_arr, format=options["output_format"].upper()
+                    )
             except KeyError:
                 raise ValueError(
                     f"Selected output format '{options['output_format'].upper()}' is not supported by Pillow."
